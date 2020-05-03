@@ -6,14 +6,22 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "tsc",
     "watch": "tsc -w",
     "cdk": "cdk"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo 'TODO: implement lint'",
+      "pre-push": "npm test"
+    }
+  },
   "devDependencies": {
     "@types/node": "^13.13.4",
     "aws-cdk": "^1.36.1",
+    "husky": "^4.2.5",
+    "jest": "^25.5.4",
     "typescript": "^3.8.3"
   },
   "dependencies": {
