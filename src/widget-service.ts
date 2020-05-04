@@ -1,9 +1,9 @@
-import cdk from '@aws-cdk/core';
-import apigateway from '@aws-cdk/aws-apigateway';
-import lambda from '@aws-cdk/aws-lambda';
-import s3 from '@aws-cdk/aws-s3';
+import { Construct, RemovalPolicy } from '@aws-cdk/core';
+import { LambdaIntegration, RestApi } from '@aws-cdk/aws-apigateway';
+import { AssetCode, Function, Runtime } from '@aws-cdk/aws-lambda';
+import { Bucket } from '@aws-cdk/aws-s3';
 
-export class WidgetService extends cdk.Construct {
+export class WidgetService extends Construct {
     _isDevelopment() {
         // TODO: Extract this into config.
         if (!process.env.NODE_ENV) {
@@ -13,44 +13,47 @@ export class WidgetService extends cdk.Construct {
         return process.env.NODE_ENV === 'development';
     }
 
-    constructor(scope: cdk.Construct, id: string) {
+    constructor(scope: Construct, id: string) {
         super(scope, id);
 
-        const bucket = new s3.Bucket(this, 'WigetStore', {
+        const bucket = new Bucket(this, 'WigetStore', {
             removalPolicy: this._isDevelopment()  
-                ? cdk.RemovalPolicy.DESTROY
-                : cdk.RemovalPolicy.RETAIN,
+                ? RemovalPolicy.DESTROY
+                : RemovalPolicy.RETAIN,
         });
 
-        const lambda = new lambda.Function(this, 'WidgetHandler', {
-            runtime: lambda.Runtime.NODEJS_12_X,
-            code: lambda.AssetCode.asset('resources'),
+        const lambdaFn = new Function(this, 'WidgetHandler', {
+            runtime: Runtime.NODEJS_12_X,
+            // TODO: Replace with actual code
+            code: AssetCode.fromInline('console.log("Hello World!"'),
             handler: 'wigets.main',
             environment: {
                 BUCKET: bucket.bucketName,
             },
         });
 
-        bucket.grantReadWrite(lambda);
+        bucket.grantReadWrite(lambdaFn);
 
-        const api = new apigateway.RestApi(this, 'WidgetAPI', {
+        const api = new RestApi(this, 'WidgetAPI', {
             restApiName: 'Widget Service',
             description: 'This service serves widgets',
         });
 
-        const listWidgetsIntegration = new apigateway.LambdaIntegration(lambda, {
-            requestTemplate: { 'application/json': { statusCode: 200 } },
+        const listWidgetsIntegration = new LambdaIntegration(lambdaFn, {
+            requestTemplates: { 
+                'application/json': '{ "statusCode": 200 }',
+            },
         });
         api.root.addMethod('GET', listWidgetsIntegration);
 
         const widget = api.root.addResource('{id}');
-        const createWidgetIntegration = new apigateway.Lambda(lambda);
+        const createWidgetIntegration = new LambdaIntegration(lambdaFn);
         widget.addMethod('POST', createWidgetIntegration);
 
-        const getWidgetIntegration = new apigateway.LambdaIntegration(lambda);
+        const getWidgetIntegration = new LambdaIntegration(lambdaFn);
         widget.addMethod('GET', getWidgetIntegration);
 
-        const deleteWidgetIntegration = new apigateway.LambdaIntegration(lambda);
+        const deleteWidgetIntegration = new LambdaIntegration(lambdaFn);
         widget.addMethod('DELETE', deleteWidgetIntegration);
 
     }
