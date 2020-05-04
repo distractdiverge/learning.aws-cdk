@@ -1,16 +1,16 @@
-import { } from '@aws-cdk/core';
-import widget_service from './widget-service';
+import { App, Stack, StackProps } from '@aws-cdk/core';
+import { WidgetService } from './widget-service';
 
-export class MyWidgetServiceStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+export class MyWidgetServiceStack extends Stack {
+  constructor(scope: App, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    new widget_service.WidgetService(this, 'widgets');
+    new WidgetService(this, 'widgets');
   }
 }
 
 if (require.main === module) {
-  const app = new cdk.App();
+  const app = new App();
   (new  MyWidgetServiceStack(app, 'MyWidgetServiceStack'));
   app.synth();
 }
