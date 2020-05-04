@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "docs": "mmdc -i overview.mmd -o ./docs/overview.png",
     "test": "jest",
     "build": "tsc",
     "watch": "tsc -w",
@@ -18,10 +19,12 @@
     }
   },
   "devDependencies": {
+    "@aws-cdk/assert": "^1.36.1",
     "@types/node": "^13.13.4",
     "aws-cdk": "^1.36.1",
     "husky": "^4.2.5",
     "jest": "^25.5.4",
+    "mermaid.cli": "^0.5.1",
     "typescript": "^3.8.3"
   },
   "dependencies": {

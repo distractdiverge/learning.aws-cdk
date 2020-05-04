@@ -1,0 +1,18 @@
+graph LR;
+
+CloudWatch --Trigger Scheduled Event--> Populator;
+
+Populator --"Add 'Item(s)' to process"--> sqs[To Process Queue];
+
+sqs --> Processor_1;
+sqs --"Read 'Item(s)' in Parallel"--> Processor_2;
+sqs --> Processor_N;
+
+Processor_1 --> 3rdPartyProxyAPI;
+Processor_2 --"Request 3rdParty 'Item'"--> 3rdPartyProxyAPI;
+Processor_N --> 3rdPartyProxyAPI;
+
+3rdPartyProxyAPI --> 3rdParty;
+3rdParty --> 3rdPartyProxyAPI;
+
+3rdPartyProxyAPI --> Database[database];
