@@ -9,8 +9,9 @@
     "docs": "mmdc -i overview.mmd -o ./docs/overview.png",
     "test": "jest",
     "build": "tsc",
-    "prebuild:infra": "npm run -s build",
+    "prebuild:infra": "npm run build",
     "build:infra": "cdk synth -a src/index.js",
+    "predeploy": "npm run build:infra",
     "deploy": "cdk deploy -a src/index.ts",
     "watch": "tsc -w",
     "cdk": "cdk"
