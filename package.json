@@ -9,6 +9,8 @@
     "docs": "mmdc -i overview.mmd -o ./docs/overview.png",
     "test": "jest",
     "build": "tsc",
+    "build:infra": "cdk synth",
+    "deploy": "cdk deploy -a src/index.ts",
     "watch": "tsc -w",
     "cdk": "cdk"
   },
