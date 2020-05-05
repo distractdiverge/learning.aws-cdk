@@ -12,7 +12,7 @@
     "prebuild:infra": "npm run build",
     "build:infra": "cdk synth -a src/index.js",
     "predeploy": "npm run build:infra",
-    "deploy": "cdk deploy -a src/index.ts",
+    "deploy": "cdk deploy -a src/index.js --profile aws_cdk --require-approval never",
     "watch": "tsc -w",
     "cdk": "cdk"
   },
