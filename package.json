@@ -15,12 +15,15 @@
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "echo 'TODO: implement lint'",
       "pre-push": "echo 'TODO: implement JEST tests'"
     }
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.36.1",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@types/node": "^13.13.4",
     "aws-cdk": "^1.36.1",
     "husky": "^4.2.5",
