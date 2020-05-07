@@ -17,7 +17,7 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "echo 'TODO: implement lint'",
-      "pre-push": "echo 'TODO: implement JEST tests'"
+      "pre-push": "npm t"
     }
   },
   "devDependencies": {
