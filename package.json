@@ -33,6 +33,7 @@
     "@aws-cdk/aws-lambda": "^1.36.1",
     "@aws-cdk/aws-s3": "^1.36.1",
     "@aws-cdk/core": "^1.36.1",
-    "source-map-support": "^0.5.19"
+    "source-map-support": "^0.5.19",
+    "ts-node": "^8.10.1"
   }
 }
