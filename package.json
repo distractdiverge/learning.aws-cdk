@@ -6,13 +6,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "docs": "mmdc -i overview.mmd -o ./docs/overview.png",
+    "docs": "mmdc -i ./docs/overview.mmd -o ./docs/overview.png",
     "test": "jest",
     "build": "tsc",
-    "prebuild:infra": "npm run build",
-    "build:infra": "cdk synth -a src/index.js",
-    "predeploy": "npm run build:infra",
-    "deploy": "cdk deploy -a src/index.js --profile aws_cdk --require-approval never",
+    "deploy": "cdk deploy --profile aws_cdk",
     "watch": "tsc -w",
     "cdk": "cdk"
   },
