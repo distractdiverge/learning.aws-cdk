@@ -8,6 +8,7 @@
   "scripts": {
     "docs": "mmdc -i ./docs/overview.mmd -o ./docs/overview.png",
     "test": "jest",
+    "test:ci": "jest --ci",
     "build": "tsc",
     "deploy": "cdk deploy --profile aws_cdk",
     "watch": "tsc -w",
@@ -15,15 +16,12 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "echo 'TODO: implement lint'",
       "pre-push": "npm t"
     }
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.36.1",
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
     "@types/node": "^13.13.4",
     "aws-cdk": "^1.36.1",
     "husky": "^4.2.5",
